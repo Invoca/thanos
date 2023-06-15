@@ -1,0 +1,10 @@
+FROM golang:1.20 as build
+
+WORKDIR $GOPATH/src/github.com/thanos-io/thanos
+COPY . $GOPATH/src/github.com/thanos-io/thanos
+RUN git update-index --refresh; make build
+
+FROM invocaops/base:master
+COPY --from=build /go/bin/thanos /bin/thanos
+
+ENTRYPOINT ["/bin/thanos"]
