@@ -285,4 +285,4 @@ replace (
 	k8s.io/klog/v2 => github.com/simonpasquier/klog-gokit/v3 v3.0.0
 )
 
-replace github.com/prometheus/prometheus => github.com/invoca/prometheus v0.39.2-0.20230512224906-fd9a451e823b
+replace github.com/prometheus/prometheus => github.com/invoca/prometheus v0.39.2-0.20230717170921-7d8cb1166b6b
