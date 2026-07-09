@@ -62,8 +62,8 @@ import (
 	"github.com/thanos-io/thanos/pkg/extgrpc"
 	"github.com/thanos-io/thanos/pkg/extkingpin"
 	"github.com/thanos-io/thanos/pkg/extprom"
-	extpromhttp "github.com/thanos-io/thanos/pkg/extprom/http"
 	"github.com/thanos-io/thanos/pkg/extpromql"
+	extpromhttp "github.com/thanos-io/thanos/pkg/extprom/http"
 	"github.com/thanos-io/thanos/pkg/info"
 	"github.com/thanos-io/thanos/pkg/info/infopb"
 	"github.com/thanos-io/thanos/pkg/logging"
@@ -602,7 +602,7 @@ func runRule(
 		if len(conf.EnableFeatures) > 0 {
 			for _, feature := range conf.EnableFeatures {
 				if feature == promqlExperimentalFunctions {
-					parser.EnableExperimentalFunctions = true
+					extpromql.SetEnableExperimentalFunctions(true)
 					level.Info(logger).Log("msg", "Experimental PromQL functions enabled.", "option", promqlExperimentalFunctions)
 				}
 			}
