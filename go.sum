@@ -1355,6 +1355,8 @@ github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapp
 github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.32.3/go.mod h1:9a+Opaevo9fybhUvQkEG7fR6Zk7pYrW/s9NC4fODFIQ=
 github.com/HdrHistogram/hdrhistogram-go v1.1.2 h1:5IcZpTvzydCQeHzK4Ef/D5rrSqwxob0t8PQPMybUNFM=
 github.com/HdrHistogram/hdrhistogram-go v1.1.2/go.mod h1:yDgFjdqOqDEKOvasDdhWNXYg9BVp4O+o5f6V/ehm6Oo=
+github.com/Invoca/prometheus v1.8.2-0.20260708041226-82a784768cdd h1:2ACHbEpBbmIWuy6Ka4e2zR2WqgfnVJEH6Po7971hyA8=
+github.com/Invoca/prometheus v1.8.2-0.20260708041226-82a784768cdd/go.mod h1:GGS7QlWKCqCbcEzWsVahYIfQwiGhcExkarHyLJTsv6I=
 github.com/JohnCGriffin/overflow v0.0.0-20211019200055-46fa312c352c/go.mod h1:X0CRv0ky0k6m906ixxpzmDRLvX58TFUKS2eePweuyxk=
 github.com/KimMachineGun/automemlimit v0.6.1 h1:ILa9j1onAAMadBsyyUJv5cack8Y1WT26yLj/V+ulKp8=
 github.com/KimMachineGun/automemlimit v0.6.1/go.mod h1:T7xYht7B8r6AG/AqFcUdc7fzd2bIdBKmepfP2S1svPY=
@@ -2179,8 +2181,6 @@ github.com/prometheus/procfs v0.8.0/go.mod h1:z7EfXMXOkbkqb9IINtpCn86r/to3BnA0ua
 github.com/prometheus/procfs v0.9.0/go.mod h1:+pB4zwohETzFnmlpe6yd2lSc+0/46IYZRB/chUwxUZY=
 github.com/prometheus/procfs v0.15.1 h1:YagwOFzUgYfKKHX6Dr+sHT7km/hxC76UB0learggepc=
 github.com/prometheus/procfs v0.15.1/go.mod h1:fB45yRUv8NstnjriLhBQLuOUt+WW4BsoGhij/e3PBqk=
-github.com/prometheus/prometheus v0.55.1-0.20241102120812-a6fd22b9d2c8 h1:hCxAh6+hxwy7dqUPE5ndnilMeCWrqQkJVjPDXtiYRVo=
-github.com/prometheus/prometheus v0.55.1-0.20241102120812-a6fd22b9d2c8/go.mod h1:GGS7QlWKCqCbcEzWsVahYIfQwiGhcExkarHyLJTsv6I=
 github.com/redis/rueidis v1.0.45-alpha.1 h1:69Bu1l7gVC/qDYuGGwMwGg2rjOjSyxESol/Zila62gY=
 github.com/redis/rueidis v1.0.45-alpha.1/go.mod h1:q7BfhDaPt7xxwy2nv2RqQO12/mmHflDjebpcNwWFjms=
 github.com/remyoudompheng/bigfft v0.0.0-20200410134404-eec4a21b6bb0/go.mod h1:qqbHyh8v60DhA7CoWK5oRCqLrMHRGoxYCSS9EjAz6Eo=
