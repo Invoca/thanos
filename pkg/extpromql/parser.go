@@ -49,6 +49,11 @@ func ParseExpr(input string) (parser.Expr, error) {
 	return parser.NewParser(ParserOptions()).ParseExpr(input)
 }
 
+// ParseSeriesDesc parses the given series description into its labels and values.
+func ParseSeriesDesc(input string) (labels.Labels, []parser.SequenceValue, error) {
+	return parser.NewParser(ParserOptions()).ParseSeriesDesc(input)
+}
+
 // ParseMetricSelector parses the provided textual metric selector into a list of
 // label matchers.
 func ParseMetricSelector(input string) ([]*labels.Matcher, error) {
