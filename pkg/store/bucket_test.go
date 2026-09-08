@@ -77,6 +77,12 @@ func TestRawChunkReset(t *testing.T) {
 	testutil.Equals(t, []byte(r), []byte{3, 4})
 }
 
+func TestChunkToStoreEncoding_XOR2(t *testing.T) {
+	// XOR2 (chunkenc.EncXOR2) is the Prometheus 3.11+ float chunk encoding used to
+	// persist real start timestamps. Serving it via the store-gateway must not panic.
+	testutil.Equals(t, storepb.Chunk_XOR2, chunkToStoreEncoding(chunkenc.EncXOR2))
+}
+
 func TestBucketBlock_Property(t *testing.T) {
 	t.Parallel()
 

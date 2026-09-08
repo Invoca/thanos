@@ -4,6 +4,7 @@
 package storepb
 
 import (
+	"encoding/binary"
 	"fmt"
 	"path/filepath"
 	"sort"
@@ -23,6 +24,17 @@ import (
 type sample struct {
 	t int64
 	v float64
+}
+
+func TestChunk_XORNumSamples_XOR2(t *testing.T) {
+	// XOR2 (Chunk_XOR2) is the Prometheus 3.11+ float chunk encoding used to persist
+	// real start timestamps; it shares XOR's wire header (sample count as first 2 bytes)
+	// and must be counted the same way for series stats.
+	data := make([]byte, 2)
+	binary.BigEndian.PutUint16(data, 7)
+	c := &Chunk{Type: Chunk_XOR2, Data: data}
+
+	testutil.Equals(t, 7, c.XORNumSamples())
 }
 
 type listSeriesSet struct {
