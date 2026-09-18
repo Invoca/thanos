@@ -21,7 +21,6 @@ import (
 	"github.com/prometheus/common/route"
 	"github.com/prometheus/prometheus/model/labels"
 	"github.com/prometheus/prometheus/promql"
-	"github.com/prometheus/prometheus/promql/parser"
 
 	apiv1 "github.com/thanos-io/thanos/pkg/api/query"
 	"github.com/thanos-io/thanos/pkg/api/query/querypb"
@@ -35,6 +34,7 @@ import (
 	"github.com/thanos-io/thanos/pkg/extkingpin"
 	"github.com/thanos-io/thanos/pkg/extprom"
 	extpromhttp "github.com/thanos-io/thanos/pkg/extprom/http"
+	"github.com/thanos-io/thanos/pkg/extpromql"
 	"github.com/thanos-io/thanos/pkg/gate"
 	"github.com/thanos-io/thanos/pkg/info"
 	"github.com/thanos-io/thanos/pkg/info/infopb"
@@ -224,7 +224,7 @@ func registerQuery(app *extkingpin.App) {
 
 		for _, feature := range *featureList {
 			if feature == promqlExperimentalFunctions {
-				parser.EnableExperimentalFunctions = true
+				extpromql.SetEnableExperimentalFunctions(true)
 				level.Info(logger).Log("msg", "Experimental PromQL functions enabled.", "option", promqlExperimentalFunctions)
 			}
 			if feature == promqlAtModifier {

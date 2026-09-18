@@ -14,7 +14,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	dto "github.com/prometheus/client_model/go"
 	"github.com/prometheus/prometheus/model/labels"
-	tsdb_errors "github.com/prometheus/prometheus/tsdb/errors"
+	tsdb_errors "github.com/thanos-io/thanos/internal/tsdberrors"
 
 	util_log "github.com/thanos-io/thanos/internal/cortex/util/log"
 )

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"maps"
 	"strings"
+	"sync"
 
 	"github.com/pkg/errors"
 	"github.com/prometheus/prometheus/model/labels"
@@ -15,14 +16,43 @@ import (
 	"github.com/thanos-io/promql-engine/execution/parse"
 )
 
+var enableExperimentalFunctions bool
+
+// SetEnableExperimentalFunctions toggles parsing of experimental PromQL functions.
+func SetEnableExperimentalFunctions(v bool) {
+	enableExperimentalFunctions = v
+}
+
+// ParserOptions returns PromQL parser options for Thanos components.
+func ParserOptions() parser.Options {
+	return parser.Options{
+		EnableExperimentalFunctions: enableExperimentalFunctions,
+	}
+}
+
+var parseMu sync.Mutex
+
 // ParseExpr parses the input PromQL expression and returns the parsed representation.
 func ParseExpr(input string) (parser.Expr, error) {
+	parseMu.Lock()
+	defer parseMu.Unlock()
+
 	allFuncs := make(map[string]*parser.Function, len(parse.XFunctions)+len(parser.Functions))
 	maps.Copy(allFuncs, parser.Functions)
 	maps.Copy(allFuncs, parse.XFunctions)
-	p := parser.NewParser(input, parser.WithFunctions(allFuncs))
-	defer p.Close()
-	return p.ParseExpr()
+
+	orig := parser.Functions
+	parser.Functions = allFuncs
+	defer func() {
+		parser.Functions = orig
+	}()
+
+	return parser.NewParser(ParserOptions()).ParseExpr(input)
+}
+
+// ParseSeriesDesc parses the given series description into its labels and values.
+func ParseSeriesDesc(input string) (labels.Labels, []parser.SequenceValue, error) {
+	return parser.NewParser(ParserOptions()).ParseSeriesDesc(input)
 }
 
 // ParseMetricSelector parses the provided textual metric selector into a list of

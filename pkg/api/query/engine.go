@@ -27,12 +27,14 @@ import (
 	"github.com/go-kit/log"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/prometheus/promql"
+	"github.com/prometheus/prometheus/promql/parser"
 	"github.com/prometheus/prometheus/storage"
 
 	"github.com/thanos-io/promql-engine/api"
 	"github.com/thanos-io/promql-engine/engine"
 	"github.com/thanos-io/promql-engine/logicalplan"
 	"github.com/thanos-io/thanos/pkg/extprom"
+	"github.com/thanos-io/thanos/pkg/extpromql"
 	"github.com/thanos-io/thanos/pkg/logutil"
 )
 
@@ -107,9 +109,13 @@ func NewQueryFactory(
 				},
 				EnableNegativeOffset: true,
 				EnableAtModifier:     true,
+				Parser:               parser.NewParser(extpromql.ParserOptions()),
 			},
 			EnableXFunctions: enableXFunctions,
 			EnableAnalysis:   true,
+		}
+		if opts.Parser == nil {
+			opts.Parser = parser.NewParser(extpromql.ParserOptions())
 		}
 		if activeQueryTracker != nil {
 			opts.ActiveQueryTracker = activeQueryTracker

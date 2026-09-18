@@ -48,7 +48,7 @@ func TestParseMetricSelector(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			//lint:ignore faillint Testing against prometheus parser.
-			want, err := parser.ParseMetricSelector(tc.input)
+			want, err := parser.NewParser(parser.Options{}).ParseMetricSelector(tc.input)
 			if err != nil {
 				t.Fatalf("Prometheus ParseMetricSelector failed: %v", err)
 			}
@@ -65,4 +65,20 @@ func TestParseMetricSelector(t *testing.T) {
 
 func stringFmt(got []*labels.Matcher) string {
 	return fmt.Sprintf("%v", got)
+}
+
+func TestParseSeriesDesc(t *testing.T) {
+	//lint:ignore faillint Testing against prometheus parser.
+	wantLabels, wantValues, err := parser.NewParser(parser.Options{}).ParseSeriesDesc(`http_requests_total{method="GET"} 1 2 3`)
+	if err != nil {
+		t.Fatalf("Prometheus ParseSeriesDesc failed: %v", err)
+	}
+
+	gotLabels, gotValues, err := extpromql.ParseSeriesDesc(`http_requests_total{method="GET"} 1 2 3`)
+	if err != nil {
+		t.Fatalf("ParseSeriesDesc failed: %v", err)
+	}
+
+	testutil.Equals(t, wantLabels, gotLabels)
+	testutil.Equals(t, fmt.Sprintf("%v", wantValues), fmt.Sprintf("%v", gotValues))
 }

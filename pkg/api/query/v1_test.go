@@ -2014,6 +2014,10 @@ func (s sample) T() int64 {
 	return s.t
 }
 
+func (s sample) ST() int64 {
+	return 0
+}
+
 func (s sample) F() float64 {
 	return s.f
 }
