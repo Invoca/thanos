@@ -125,6 +125,7 @@ func (t *test) reset() {
 		MaxSamples:               10000,
 		Timeout:                  100 * time.Second,
 		NoStepSubqueryIntervalFn: func(int64) int64 { return durationMilliseconds(1 * time.Minute) },
+		Parser:                   parser.NewParser(extpromql.ParserOptions()),
 	}
 	t.rootEngine = promql.NewEngine(opts)
 

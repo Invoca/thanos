@@ -34,16 +34,17 @@ var parseMu sync.Mutex
 
 // ParseExpr parses the input PromQL expression and returns the parsed representation.
 func ParseExpr(input string) (parser.Expr, error) {
+	parseMu.Lock()
+	defer parseMu.Unlock()
+
 	allFuncs := make(map[string]*parser.Function, len(parse.XFunctions)+len(parser.Functions))
 	maps.Copy(allFuncs, parser.Functions)
 	maps.Copy(allFuncs, parse.XFunctions)
 
-	parseMu.Lock()
 	orig := parser.Functions
 	parser.Functions = allFuncs
 	defer func() {
 		parser.Functions = orig
-		parseMu.Unlock()
 	}()
 
 	return parser.NewParser(ParserOptions()).ParseExpr(input)

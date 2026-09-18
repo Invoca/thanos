@@ -381,10 +381,10 @@ func (d *RelabelModifier) Modify(_ index.StringIter, set storage.ChunkSeriesSet,
 		chksIter := s.Iterator(nil)
 
 		lb := labels.NewBuilder(lbls.Copy())
-		relabel.ProcessBuilder(lb, d.relabels...)
-		processedLabels := lb.Labels()
-		if processedLabels.IsEmpty() {
-			// Special case: Delete whole series if no labels are present.
+		keep := relabel.ProcessBuilder(lb, d.relabels...)
+		if !keep || lb.Labels().IsEmpty() {
+			// Special case: Delete whole series if relabeling drops it, or
+			// if it drops every label (e.g. via labeldrop/labelkeep).
 			var (
 				minT int64 = math.MaxInt64
 				maxT int64 = math.MinInt64
@@ -411,6 +411,7 @@ func (d *RelabelModifier) Modify(_ index.StringIter, set storage.ChunkSeriesSet,
 			log.DeleteSeries(lbls, deleted)
 			p.SeriesProcessed()
 		} else {
+			processedLabels := lb.Labels()
 			processedLabels.Range(func(l labels.Label) {
 				symbols[l.Name] = struct{}{}
 				symbols[l.Value] = struct{}{}
