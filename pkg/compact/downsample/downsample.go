@@ -941,7 +941,7 @@ func downsampleAggrLoop(
 
 func expandChunkIterator(it chunkenc.Iterator, encoding chunkenc.Encoding, samples *[]sample) error {
 	switch encoding {
-	case chunkenc.EncXOR:
+	case chunkenc.EncXOR, chunkenc.EncXOR2:
 		return expandXorChunkIterator(it, samples)
 	case chunkenc.EncFloatHistogram:
 		return expandFloatHistogramChunkIterator(it, samples)

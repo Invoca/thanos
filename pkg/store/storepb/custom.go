@@ -501,9 +501,9 @@ func LabelsToPromLabelsUnsafe(lset []Label) labels.Labels {
 	return labelpb.ZLabelsToPromLabels(lset)
 }
 
-// XORNumSamples return number of samples. Returns 0 if it's not XOR chunk.
+// XORNumSamples return number of samples. Returns 0 if it's not an XOR or XOR2 chunk.
 func (m *Chunk) XORNumSamples() int {
-	if m.Type == Chunk_XOR {
+	if m.Type == Chunk_XOR || m.Type == Chunk_XOR2 {
 		return int(binary.BigEndian.Uint16(m.Data))
 	}
 	return 0

@@ -1211,6 +1211,22 @@ func TestExpandChunkIterator(t *testing.T) {
 	testutil.Equals(t, []sample{{t: 100, v: 1}, {t: 200, v: 2}, {t: 200, v: 3}, {t: 201, v: 4}, {t: 300, v: 6}, {t: 500, v: 5}}, res)
 }
 
+func TestExpandChunkIteratorXOR2(t *testing.T) {
+	// XOR2 (chunkenc.EncXOR2) is the Prometheus 3.11+ float chunk encoding used to
+	// persist real start timestamps; it must expand identically to plain XOR.
+	var res []sample
+	testutil.Ok(t,
+		expandChunkIterator(
+			newSampleIterator([]sample{
+				{t: 100, v: 1}, {t: 200, v: 2}, {t: 200, v: 3}, {t: 201, v: 4}, {t: 200, v: 5},
+				{t: 300, v: 6}, {t: 400, v: math.Float64frombits(value.StaleNaN)}, {t: 500, v: 5},
+			}), chunkenc.EncXOR2, &res,
+		),
+	)
+
+	testutil.Equals(t, []sample{{t: 100, v: 1}, {t: 200, v: 2}, {t: 200, v: 3}, {t: 201, v: 4}, {t: 300, v: 6}, {t: 500, v: 5}}, res)
+}
+
 var (
 	// Decoded excerpt of pkg/query/testdata/issue2401-seriesresponses.json without overlaps (downsampling works directly on blocks).
 	realisticChkDataWithStaleMarker = [][]sample{
@@ -2881,4 +2897,7 @@ func TestDownsampleNHCutNewChunk(t *testing.T) {
 	require.False(t, cutNewChunk(chunkenc.EncFloatHistogram, chunkenc.EncFloatHistogram))
 	require.True(t, cutNewChunk(chunkenc.EncXOR, chunkenc.EncFloatHistogram))
 	require.True(t, cutNewChunk(chunkenc.EncXOR, chunkenc.EncHistogram))
+	require.True(t, cutNewChunk(chunkenc.EncXOR2, chunkenc.EncHistogram))
+	require.False(t, cutNewChunk(chunkenc.EncXOR2, chunkenc.EncXOR))
+	require.False(t, cutNewChunk(chunkenc.EncXOR, chunkenc.EncXOR2))
 }
