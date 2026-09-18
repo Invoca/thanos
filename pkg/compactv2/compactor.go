@@ -15,8 +15,8 @@ import (
 	"github.com/prometheus/prometheus/storage"
 	"github.com/prometheus/prometheus/tsdb"
 	"github.com/prometheus/prometheus/tsdb/chunkenc"
-	tsdb_errors "github.com/thanos-io/thanos/internal/tsdberrors"
 	"github.com/prometheus/prometheus/tsdb/index"
+	tsdb_errors "github.com/thanos-io/thanos/internal/tsdberrors"
 
 	"github.com/thanos-io/thanos/pkg/block"
 )
