@@ -508,7 +508,11 @@ func runQuery(
 	// Otherwise, the nil active query tracker from existing engine options will be used.
 	var activeQueryTracker *promql.ActiveQueryTracker
 	if activeQueryDir != "" {
-		activeQueryTracker = promql.NewActiveQueryTracker(activeQueryDir, maxConcurrentQueries, logutil.GoKitLogToSlog(logger))
+		var err error
+		activeQueryTracker, err = promql.NewActiveQueryTracker(activeQueryDir, maxConcurrentQueries, logutil.GoKitLogToSlog(logger))
+		if err != nil {
+			return errors.Wrap(err, "creating active query tracker")
+		}
 	}
 
 	queryCreator := apiv1.NewQueryFactory(
