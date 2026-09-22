@@ -572,8 +572,8 @@ github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapp
 github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.53.0/go.mod h1:cSgYe11MCNYunTnRXrKiR/tHc0eoKjICUuWpNZoVCOo=
 github.com/HdrHistogram/hdrhistogram-go v1.1.2 h1:5IcZpTvzydCQeHzK4Ef/D5rrSqwxob0t8PQPMybUNFM=
 github.com/HdrHistogram/hdrhistogram-go v1.1.2/go.mod h1:yDgFjdqOqDEKOvasDdhWNXYg9BVp4O+o5f6V/ehm6Oo=
-github.com/Invoca/prometheus v1.8.2-0.20260922173105-5f67126c7fd5 h1:7yO+cy7uM08ASYErv+eF9BdHXFADdSmAw9cMXJX2vkk=
-github.com/Invoca/prometheus v1.8.2-0.20260922173105-5f67126c7fd5/go.mod h1:pQkflj7mt/kffP0iAqc6uzhHovJu8BilpAxHwj3107E=
+github.com/Invoca/prometheus v1.8.2-0.20260922220635-1480a8692939 h1:TbKrEeSmf3c0EHXL8GSQJfSnogrvRw4pMKU6tqJ6jTs=
+github.com/Invoca/prometheus v1.8.2-0.20260922220635-1480a8692939/go.mod h1:pQkflj7mt/kffP0iAqc6uzhHovJu8BilpAxHwj3107E=
 github.com/JohnCGriffin/overflow v0.0.0-20211019200055-46fa312c352c/go.mod h1:X0CRv0ky0k6m906ixxpzmDRLvX58TFUKS2eePweuyxk=
 github.com/KimMachineGun/automemlimit v0.7.5 h1:RkbaC0MwhjL1ZuBKunGDjE/ggwAX43DwZrJqVwyveTk=
 github.com/KimMachineGun/automemlimit v0.7.5/go.mod h1:QZxpHaGOQoYvFhv/r4u3U0JTC2ZcOwbSr11UZF46UBM=
